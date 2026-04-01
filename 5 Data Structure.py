@@ -145,3 +145,93 @@ a = {x for x in 'abracadabra' if x not in 'abc'}
 print(a)
 
 # ======================================== 5.5 Dictionaries
+
+# Extracting a value for a non-existent key by subscripting (d[key]) raises a KeyError.
+# To avoid getting this error when trying to access a possibly non-existent key,
+# use the get() method instead, which returns None (or a specified default value)
+# if the key is not in the dictionary.
+
+tel = {'jack': 4098, 'sape': 4139}
+tel['guido'] = 4127
+print(tel)
+print(tel['jack'])
+
+# If there is no corresponding pair,KeyError is raised. Use "get" instead
+# print(tel['irv'])
+print(tel.get('irv'))
+
+del tel['sape']
+tel['irv'] = 4127
+print(tel)
+
+print(list(tel))
+print(sorted(tel))
+
+print('guido' in tel)
+print('jack' not in tel)
+
+# empty dict
+print({})
+
+# use dict + sequence
+print(dict([('sape', 4139), ('guido', 4127), ('jack', 4098)]))
+
+# dict comprehensions
+print({x: x ** 2 for x in range(5)})
+
+# keyword arguments
+print(dict(sape=4139, guido=4127, jack=4098))
+
+# ======================================== 5.6 Looping Techniques
+
+# items
+knights = {'gallahad': 'the pure', 'robin': 'the brave'}
+for k, v in knights.items():
+    print(k, v)
+
+# enumerate return the item and index
+for i, v in enumerate(['tic', 'tac', 'toe']):
+    print(i, v)
+
+# be paired with zip
+questions = ['name', 'quest', 'favorite color']
+answers = ['lancelot', 'the holy grail', 'blue']
+for q, a in zip(questions, answers):
+    print('What is your {0}?  It is {1}.'.format(q, a))
+
+# reverse a sequence
+for i in reversed(range(1, 10, 2)):
+    print(i)
+
+# eliminate duplicate elements and sort
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+for f in sorted(set(basket)):
+    print(f)
+
+# It is sometimes tempting to change a list while you are looping over it;
+# however, it is often simpler and safer to create a new list instead.
+import math
+
+raw_data = [56.2, float('NaN'), 51.7, 55.3, 52.5, float('NaN'), 47.8]
+filtered_data = []
+for value in raw_data:
+    if not math.isnan(value):
+        filtered_data.append(value)
+
+print(filtered_data)
+
+
+# ======================================== 5.7 More on Conditions
+string1, string2, string3 = '', 'Trondheim', 'Hammer Dance'
+non_null = string1 or string2 or string3
+print(non_null)
+
+
+# ======================================== 5.8 Comparing Sequence and Other Types
+# (1, 2, 3)              < (1, 2, 4)
+# [1, 2, 3]              < [1, 2, 4]
+# 'ABC' < 'C' < 'Pascal' < 'Python'
+# (1, 2, 3, 4)           < (1, 2, 4)
+# (1, 2)                 < (1, 2, -1)
+# (1, 2, 3)             == (1.0, 2.0, 3.0)
+# (1, 2, ('aa', 'ab'))   < (1, 2, ('abc', 'a'), 4)
